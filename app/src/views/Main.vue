@@ -421,7 +421,7 @@ export default {
       text-align: center;
       //   border: 1px solid rgb(205, 205, 205);
       border-radius: 0 0 7px 7px;
-      background: rgb(150, 175, 67);
+      background: rgb(178, 208, 77);
       color: rgb(255, 255, 255);
       font-weight: bold;
     }
