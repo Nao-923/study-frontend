@@ -108,12 +108,15 @@
                         </el-tooltip>
                       </div>
                     </div>
+                    
                   </div>
                 </div>
                 <div class="status">GOOD</div>
               </div>
             </el-col>
           </el-row>
+
+ 
           <div class="dashboard-header">
             <h2
               class="title float-left"
@@ -121,29 +124,6 @@
             >
               生徒一覧
             </h2>
-          </div>
-          <el-table :data="tableData" stripe style="width: 100%">
-            <el-table-column prop="date" label="Date" width="180">
-            </el-table-column>
-            <el-table-column prop="name" label="Name" width="180">
-            </el-table-column>
-            <el-table-column prop="address" label="Address"> </el-table-column>
-          </el-table>
-          <div
-            class="
-              studentList
-              drop-shadow-lg
-              clear-both
-              rounded-lg
-              bg-green-400
-              py-2
-              my-10
-            "
-          >
-            <el-table :data="tableData" stripe style="width: 100%">
-              <el-table-column prop="address" label="Date" width="100%">
-              </el-table-column>
-            </el-table>
           </div>
         </div>
       </div>
