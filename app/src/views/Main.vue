@@ -18,119 +18,140 @@
     <div class="line"></div>
     <div class="container m-auto px-5">
       <div class="dashboard">
-        <h2
-          class="title"
-          style="text-align: left; font-size: 1.3rem; font-weight: bold"
-        >
-          ダッシュボード
-        </h2>
-        <el-row :gutter="20">
-          <el-col :span="24"
-            ><div class="infoCard">
-              <div class="team">
-                AA <span class="mentor-name">るみたん</span>
-                <span class="afterfix"> チーム</span>
-                <div class="team-progress-desc">チーム進捗</div>
-                <el-progress
-                  :percentage="55"
-                  :format="format"
-                  style="line-height: 7px; margin-bottom: 7px"
-                ></el-progress>
+        <div class="dashboard-header">
+          <h2
+            class="title float-left"
+            style="text-align: left; font-size: 1.3rem; font-weight: bold"
+          >
+            ダッシュボード
+          </h2>
+          <div class="float-right">
+            <el-radio-group v-model="showOption" size="small">
+              <el-radio-button label="min" />
+              <el-radio-button label="normal" />
+              <el-radio-button label="max" />
+            </el-radio-group>
+          </div>
+        </div>
+        <div class="userTables clear-both">
+          <el-row :gutter="20">
+            <el-col :xs="24" :sm="12" :md="8" :lg="6"
+              ><div class="infoCard">
+                <div class="team">
+                  AA <span class="mentor-name">HOGEHOGE</span>
+                  <span class="afterfix"> チーム</span>
+                  <div class="team-progress-desc">チーム進捗</div>
+                  <el-progress
+                    :percentage="55"
+                    :format="format"
+                    style="line-height: 7px"
+                  ></el-progress>
 
-                <div class="member mb-4">
-                  <div class="name my-1">
-                    サンプルユーザー1 <el-tag size="mini">Unity 7</el-tag><br />
-                    <!-- <div class="userStatus h-8 bg-gray-300 flex flex-row">
-                    <div class="basis-1/4 h-8">a</div>
-                    <div class="basis-1/4 bg-gray-500 h-8">a</div>
-                    <div class="info basis-1/4 h-8">a</div>
-                  </div> -->
-                  </div>
-                  <div class="userStatus flex h-8">
-                    <div
-                      class="flex-1 bg-green-300 mx-1 rounded grid place-items-center"
-                    >
-                      Step: 5 / 19
-                    </div>
-                    <div
-                      class="flex-1 bg-green-300 mx-1 rounded grid place-items-center"
-                    >
-                      OPM: 完了
-                    </div>
-                    <div
-                      class="flex-1 bg-red-300 mx-1 rounded grid place-items-center"
-                    >
-                      赤信号
-                    </div>
-                  </div>
-                </div>
-                <div class="member mb-4">
-                  <div class="name my-1">
-                    サンプルユーザー1 <el-tag size="mini">Unity 7</el-tag><br />
-                    <!-- <div class="userStatus h-8 bg-gray-300 flex flex-row">
-                    <div class="basis-1/4 h-8">a</div>
-                    <div class="basis-1/4 bg-gray-500 h-8">a</div>
-                    <div class="info basis-1/4 h-8">a</div>
-                  </div> -->
-                  </div>
-                  <div class="userStatus flex h-8">
-                    <div
-                      class="flex-1 bg-green-300 mx-1 rounded grid place-items-center"
-                    >
-                      Step: 5 / 19
-                    </div>
-                    <div
-                      class="flex-1 bg-yellow-300 mx-1 rounded grid place-items-center"
-                    >
-                      OPM: 未完了
-                    </div>
-                    <div
-                      class="flex-1 bg-green-300 mx-1 rounded grid place-items-center"
-                    >
-                      OK
-                    </div>
-                  </div>
-                </div>
-                <div class="member">
-                  <div class="name my-1">
-                    サンプルユーザー1 <el-tag size="mini">Unity 7</el-tag><br />
-                    <!-- <div class="userStatus h-8 bg-gray-300 flex flex-row">
-                    <div class="basis-1/4 h-8">a</div>
-                    <div class="basis-1/4 bg-gray-500 h-8">a</div>
-                    <div class="info basis-1/4 h-8">a</div>
-                  </div> -->
-                  </div>
-                  <div class="userStatus flex h-8">
-                    <div
-                      class="flex-1 bg-green-300 mx-1 rounded grid place-items-center"
-                    >
-                      Step: 5 / 19
-                    </div>
-                    <div
-                      class="flex-1 bg-green-300 mx-1 rounded grid place-items-center"
-                    >
-                      OPM: 完了
-                    </div>
-                    <div
-                      class="flex-1 bg-green-300 mx-1 rounded grid place-items-center"
-                    >
-                      OK
+                  <div
+                    v-if="showOption == `normal` || showOption == `max`"
+                    class="members"
+                  >
+                    <div class="member rounded-lg bg-gray-100 p-2 mb-4">
+                      <div class="name mb-1">
+                        サンプルユーザー1 <el-tag size="mini">Unity 7</el-tag
+                        ><br />
+                      </div>
+                      <div class="userStatus flex h-8">
+                        <div
+                          class="
+                            flex-1
+                            bg-green-300
+                            mr-2
+                            rounded
+                            grid
+                            place-items-center
+                          "
+                        >
+                          Step: 5 / 19
+                        </div>
+                        <div
+                          class="
+                            flex-1
+                            bg-green-300
+                            mr-2
+                            rounded
+                            grid
+                            place-items-center
+                          "
+                        >
+                          OPM: 完了
+                        </div>
+                        <div
+                          class="
+                            flex-1
+                            bg-red-300
+                            rounded
+                            grid
+                            place-items-center
+                          "
+                        >
+                          赤信号
+                        </div>
+                      </div>
+                      <div class="description" v-if="showOption == `max`">
+                        <el-tooltip
+                          class="item"
+                          effect="dark"
+                          placement="bottom"
+                        >
+                          <div slot="content">
+                            溢れかえったテキストは<br />ここに表示されます
+                          </div>
+                          <div class="truncate bg-gray-300 rounded mt-2 p-2">
+                            MessageMessageMessageMessageMessageMessageMessageMessageMessageMessageMessage
+                          </div>
+                        </el-tooltip>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <div class="status">GOOD</div>
               </div>
-              <div class="status">GOOD</div>
-            </div>
-          </el-col>
-        </el-row>
+            </el-col>
+          </el-row>
+          <div class="dashboard-header">
+            <h2
+              class="title float-left"
+              style="text-align: left; font-size: 1.3rem; font-weight: bold"
+            >
+              生徒一覧
+            </h2>
+          </div>
+          <el-table :data="tableData" stripe style="width: 100%">
+            <el-table-column prop="date" label="Date" width="180">
+            </el-table-column>
+            <el-table-column prop="name" label="Name" width="180">
+            </el-table-column>
+            <el-table-column prop="address" label="Address"> </el-table-column>
+          </el-table>
+          <div
+            class="
+              studentList
+              drop-shadow-lg
+              clear-both
+              rounded-lg
+              bg-green-400
+              py-2
+              my-10
+            "
+          >
+            <el-table :data="tableData" stripe style="width: 100%">
+              <el-table-column prop="address" label="Date" width="100%">
+              </el-table-column>
+            </el-table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-
 export default {
   name: "top",
   components: {},
@@ -138,27 +159,14 @@ export default {
     return {
       tableData: [
         {
-          date: "2016-05-03",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles",
-        },
-        {
-          date: "2016-05-02",
-          name: "John",
-          address: "No. 189, Grove St, Los Angeles",
-        },
-        {
-          date: "2016-05-04",
-          name: "Morgan",
-          address: "No. 189, Grove St, Los Angeles",
-        },
-        {
-          date: "2016-05-01",
-          name: "Jessy",
-          address: "No. 189, Grove St, Los Angeles",
+          address: "No",
         },
       ],
       search: "",
+
+      discrp: false,
+      showMembers: false,
+      showOption: "min",
     };
   },
   methods: {
@@ -236,13 +244,14 @@ export default {
     text-align: left;
     .team {
       //   border: 1px solid rgb(205, 205, 205);
-      background: rgb(231, 231, 231);
+      background: rgb(255, 255, 255);
       border-radius: 7px 7px 0 0;
       border-bottom: none;
-      min-height: 100px;
+      min-height: 88px;
       font-size: 1.5rem;
       font-weight: bold;
       padding: 10px;
+      padding-bottom: 0;
       .team-progress-desc {
         font-size: 10px;
       }
@@ -265,7 +274,7 @@ export default {
       text-align: center;
       //   border: 1px solid rgb(205, 205, 205);
       border-radius: 0 0 7px 7px;
-      background: rgb(178, 208, 77);
+      background: rgb(55, 194, 0);
       color: rgb(255, 255, 255);
       font-weight: bold;
     }
