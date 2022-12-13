@@ -58,37 +58,17 @@
                       </div>
                       <div class="userStatus flex h-8">
                         <div
-                          class="
-                            flex-1
-                            bg-green-300
-                            mr-2
-                            rounded
-                            grid
-                            place-items-center
-                          "
+                          class="flex-1 bg-green-300 mr-2 rounded grid place-items-center"
                         >
                           Step: 5 / 19
                         </div>
                         <div
-                          class="
-                            flex-1
-                            bg-green-300
-                            mr-2
-                            rounded
-                            grid
-                            place-items-center
-                          "
+                          class="flex-1 bg-green-300 mr-2 rounded grid place-items-center"
                         >
                           OPM: 完了
                         </div>
                         <div
-                          class="
-                            flex-1
-                            bg-red-300
-                            rounded
-                            grid
-                            place-items-center
-                          "
+                          class="flex-1 bg-red-300 rounded grid place-items-center"
                         >
                           赤信号
                         </div>
@@ -108,7 +88,6 @@
                         </el-tooltip>
                       </div>
                     </div>
-                    
                   </div>
                 </div>
                 <div class="status">GOOD</div>
@@ -116,7 +95,6 @@
             </el-col>
           </el-row>
 
- 
           <div class="dashboard-header">
             <h2
               class="title float-left"
@@ -124,6 +102,15 @@
             >
               生徒一覧
             </h2>
+            <div
+              class="studentList clear-both bg-green-500 pt-2 mb-10 rounded-md"
+            >
+              <vue-good-table
+                :columns="columns"
+                :rows="rows"
+                styleClass="vgt-table vgt-left-center bordered condensed "
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -140,6 +127,131 @@ export default {
       tableData: [
         {
           address: "No",
+        },
+      ],
+      columns: [
+        {
+          label: "Name",
+          field: "name",
+          width: "80px",
+        },
+        {
+          label: "Name",
+          field: "name",
+          width: "80px",
+        },
+        {
+          label: "Name",
+          field: "name",
+          width: "80px",
+        },
+        {
+          label: "Name",
+          field: "name",
+          width: "80px",
+        },
+        {
+          label: "Name",
+          field: "name",
+          width: "80px",
+        },
+        {
+          label: "Age",
+          field: "age",
+          type: "number",
+          width: "70px",
+        },
+        {
+          label: "Created On",
+          field: "createdAt",
+          type: "date",
+          dateInputFormat: "yyyy-MM-dd",
+          dateOutputFormat: "MMM do yy",
+        },
+        {
+          label: "Percent",
+          field: "score",
+          type: "percentage",
+        },
+      ],
+      rows: [
+        { id: 1, name: "John", age: 20, createdAt: "", score: 0.03343 },
+        {
+          id: 2,
+          name: "Jane",
+          age: 24,
+          createdAt: "2011-10-31",
+          score: 0.03343,
+        },
+        {
+          id: 3,
+          name: "Susan",
+          age: 16,
+          createdAt: "2011-10-30",
+          score: 0.03343,
+        },
+        {
+          id: 4,
+          name: "Chris",
+          age: 55,
+          createdAt: "2011-10-11",
+          score: 0.03343,
+        },
+        {
+          id: 5,
+          name: "Dan",
+          age: 40,
+          createdAt: "2011-10-21",
+          score: 0.03343,
+        },
+        {
+          id: 6,
+          name: "John",
+          age: 20,
+          createdAt: "2011-10-31",
+          score: 0.03343,
+        },
+        {
+          id: 6,
+          name: "John",
+          age: 20,
+          createdAt: "2011-10-31",
+          score: 0.03343,
+        },
+        {
+          id: 6,
+          name: "John",
+          age: 20,
+          createdAt: "2011-10-31",
+          score: 0.03343,
+        },
+        {
+          id: 6,
+          name: "John",
+          age: 20,
+          createdAt: "2011-10-31",
+          score: 0.03343,
+        },
+        {
+          id: 6,
+          name: "John",
+          age: 20,
+          createdAt: "2011-10-31",
+          score: 0.03343,
+        },
+        {
+          id: 6,
+          name: "John",
+          age: 20,
+          createdAt: "2011-10-31",
+          score: 0.03343,
+        },
+        {
+          id: 6,
+          name: "John",
+          age: 20,
+          createdAt: "2011-10-31",
+          score: 0.03343,
         },
       ],
       search: "",
