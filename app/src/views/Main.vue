@@ -1,7 +1,7 @@
 <template>
   <div class="top">
     <el-menu default-active="1" class="el-menu-top" mode="horizontal">
-      <div class="container">
+      <div class="container m-auto px-5">
         <el-row type="flex" class="" justify="space-between">
           <div class="right">
             Vitality
@@ -16,7 +16,7 @@
       </div>
     </el-menu>
     <div class="line"></div>
-    <div class="container-off">
+    <div class="container m-auto px-5">
       <div class="dashboard">
         <h2
           class="title"
@@ -25,7 +25,7 @@
           ダッシュボード
         </h2>
         <el-row :gutter="20">
-          <el-col :span="6"
+          <el-col :span="24"
             ><div class="infoCard">
               <div class="team">
                 AA <span class="mentor-name">るみたん</span>
@@ -37,241 +37,86 @@
                   style="line-height: 7px; margin-bottom: 7px"
                 ></el-progress>
 
-                <div class="member">
-                  サンプルユーザー1 <el-tag size="mini">Unity 7</el-tag><br />
+                <div class="member mb-4">
+                  <div class="name my-1">
+                    サンプルユーザー1 <el-tag size="mini">Unity 7</el-tag><br />
+                    <!-- <div class="userStatus h-8 bg-gray-300 flex flex-row">
+                    <div class="basis-1/4 h-8">a</div>
+                    <div class="basis-1/4 bg-gray-500 h-8">a</div>
+                    <div class="info basis-1/4 h-8">a</div>
+                  </div> -->
+                  </div>
+                  <div class="userStatus flex h-8">
+                    <div
+                      class="flex-1 bg-green-300 mx-1 rounded grid place-items-center"
+                    >
+                      Step: 5 / 19
+                    </div>
+                    <div
+                      class="flex-1 bg-green-300 mx-1 rounded grid place-items-center"
+                    >
+                      OPM: 完了
+                    </div>
+                    <div
+                      class="flex-1 bg-red-300 mx-1 rounded grid place-items-center"
+                    >
+                      赤信号
+                    </div>
+                  </div>
+                </div>
+                <div class="member mb-4">
+                  <div class="name my-1">
+                    サンプルユーザー1 <el-tag size="mini">Unity 7</el-tag><br />
+                    <!-- <div class="userStatus h-8 bg-gray-300 flex flex-row">
+                    <div class="basis-1/4 h-8">a</div>
+                    <div class="basis-1/4 bg-gray-500 h-8">a</div>
+                    <div class="info basis-1/4 h-8">a</div>
+                  </div> -->
+                  </div>
+                  <div class="userStatus flex h-8">
+                    <div
+                      class="flex-1 bg-green-300 mx-1 rounded grid place-items-center"
+                    >
+                      Step: 5 / 19
+                    </div>
+                    <div
+                      class="flex-1 bg-yellow-300 mx-1 rounded grid place-items-center"
+                    >
+                      OPM: 未完了
+                    </div>
+                    <div
+                      class="flex-1 bg-green-300 mx-1 rounded grid place-items-center"
+                    >
+                      OK
+                    </div>
+                  </div>
                 </div>
                 <div class="member">
-                  サンプルユーザー2
-                  <el-tag size="mini" style="margin-right: 5px">Unity 8</el-tag>
-
-                  <el-tag type="warning" size="mini">復習回</el-tag>
-                </div>
-                <div class="member">
-                  サンプルユーザー3 <el-tag size="mini">Unity 9</el-tag>
-                </div>
-              </div>
-              <div class="status">GOOD</div>
-            </div>
-          </el-col>
-          <el-col :span="6"
-            ><div class="infoCard">
-              <div class="team">
-                AB <span class="mentor-name">るみたん</span>
-                <span class="afterfix"> チーム</span>
-                <div class="team-progress-desc">チーム進捗</div>
-                <el-progress
-                  :percentage="55"
-                  :format="format"
-                  style="line-height: 7px; margin-bottom: 7px"
-                ></el-progress>
-
-                <div class="member">
-                  サンプルユーザー1 <el-tag size="mini">Unity 7</el-tag><br />
-                </div>
-                <div class="member">
-                  サンプルユーザー2
-                  <el-tag size="mini" style="margin-right: 5px">Unity 8</el-tag>
-
-                  <el-tag type="warning" size="mini">復習回</el-tag>
-                </div>
-                <div class="member">
-                  サンプルユーザー3 <el-tag size="mini">Unity 9</el-tag>
-                </div>
-              </div>
-              <div class="status">GOOD</div>
-            </div>
-          </el-col>
-          <el-col :span="6"
-            ><div class="infoCard">
-              <div class="team">
-                AC <span class="mentor-name">るみたん</span>
-                <span class="afterfix"> チーム</span>
-                <div class="team-progress-desc">チーム進捗</div>
-                <el-progress
-                  :percentage="55"
-                  :format="format"
-                  style="line-height: 7px; margin-bottom: 7px"
-                ></el-progress>
-
-                <div class="member">
-                  サンプルユーザー1 <el-tag size="mini">Unity 7</el-tag><br />
-                </div>
-                <div class="member">
-                  サンプルユーザー2
-                  <el-tag size="mini" style="margin-right: 5px">Unity 8</el-tag>
-
-                  <el-tag type="warning" size="mini">復習回</el-tag>
-                </div>
-                <div class="member">
-                  サンプルユーザー3 <el-tag size="mini">Unity 9</el-tag>
-                </div>
-              </div>
-              <div class="status">GOOD</div>
-            </div>
-          </el-col>
-          <el-col :span="6"
-            ><div class="infoCard">
-              <div class="team">
-                AA <span class="mentor-name">るみたん</span>
-                <span class="afterfix"> チーム</span>
-                <div class="team-progress-desc">チーム進捗</div>
-                <el-progress
-                  :percentage="55"
-                  :format="format"
-                  style="line-height: 7px; margin-bottom: 7px"
-                ></el-progress>
-
-                <div class="member">
-                  サンプルユーザー1 <el-tag size="mini">Unity 7</el-tag><br />
-                </div>
-                <div class="member">
-                  サンプルユーザー2
-                  <el-tag size="mini" style="margin-right: 5px">Unity 8</el-tag>
-
-                  <el-tag type="warning" size="mini">復習回</el-tag>
-                </div>
-                <div class="member">
-                  サンプルユーザー3 <el-tag size="mini">Unity 9</el-tag>
-                </div>
-              </div>
-              <div class="status">GOOD</div>
-            </div>
-          </el-col>
-          <el-col :span="6"
-            ><div class="infoCard">
-              <div class="team">
-                AB <span class="mentor-name">るみたん</span>
-                <span class="afterfix"> チーム</span>
-                <div class="team-progress-desc">チーム進捗</div>
-                <el-progress
-                  :percentage="55"
-                  :format="format"
-                  style="line-height: 7px; margin-bottom: 7px"
-                ></el-progress>
-
-                <div class="member">
-                  サンプルユーザー1 <el-tag size="mini">Unity 7</el-tag><br />
-                </div>
-                <div class="member">
-                  サンプルユーザー2
-                  <el-tag size="mini" style="margin-right: 5px">Unity 8</el-tag>
-
-                  <el-tag type="warning" size="mini">復習回</el-tag>
-                </div>
-                <div class="member">
-                  サンプルユーザー3 <el-tag size="mini">Unity 9</el-tag>
-                </div>
-              </div>
-              <div class="status">GOOD</div>
-            </div>
-          </el-col>
-          <el-col :span="6"
-            ><div class="infoCard">
-              <div class="team">
-                AC <span class="mentor-name">るみたん</span>
-                <span class="afterfix"> チーム</span>
-                <div class="team-progress-desc">チーム進捗</div>
-                <el-progress
-                  :percentage="55"
-                  :format="format"
-                  style="line-height: 7px; margin-bottom: 7px"
-                ></el-progress>
-
-                <div class="member">
-                  サンプルユーザー1 <el-tag size="mini">Unity 7</el-tag><br />
-                </div>
-                <div class="member">
-                  サンプルユーザー2
-                  <el-tag size="mini" style="margin-right: 5px">Unity 8</el-tag>
-
-                  <el-tag type="warning" size="mini">復習回</el-tag>
-                </div>
-                <div class="member">
-                  サンプルユーザー3 <el-tag size="mini">Unity 9</el-tag>
-                </div>
-              </div>
-              <div class="status">GOOD</div>
-            </div>
-          </el-col>
-          <el-col :span="6"
-            ><div class="infoCard">
-              <div class="team">
-                AA <span class="mentor-name">るみたん</span>
-                <span class="afterfix"> チーム</span>
-                <div class="team-progress-desc">チーム進捗</div>
-                <el-progress
-                  :percentage="55"
-                  :format="format"
-                  style="line-height: 7px; margin-bottom: 7px"
-                ></el-progress>
-
-                <div class="member">
-                  サンプルユーザー1 <el-tag size="mini">Unity 7</el-tag><br />
-                </div>
-                <div class="member">
-                  サンプルユーザー2
-                  <el-tag size="mini" style="margin-right: 5px">Unity 8</el-tag>
-
-                  <el-tag type="warning" size="mini">復習回</el-tag>
-                </div>
-                <div class="member">
-                  サンプルユーザー3 <el-tag size="mini">Unity 9</el-tag>
-                </div>
-              </div>
-              <div class="status">GOOD</div>
-            </div>
-          </el-col>
-          <el-col :span="6"
-            ><div class="infoCard">
-              <div class="team">
-                AB <span class="mentor-name">るみたん</span>
-                <span class="afterfix"> チーム</span>
-                <div class="team-progress-desc">チーム進捗</div>
-                <el-progress
-                  :percentage="55"
-                  :format="format"
-                  style="line-height: 7px; margin-bottom: 7px"
-                ></el-progress>
-
-                <div class="member">
-                  サンプルユーザー1 <el-tag size="mini">Unity 7</el-tag><br />
-                </div>
-                <div class="member">
-                  サンプルユーザー2
-                  <el-tag size="mini" style="margin-right: 5px">Unity 8</el-tag>
-
-                  <el-tag type="warning" size="mini">復習回</el-tag>
-                </div>
-                <div class="member">
-                  サンプルユーザー3 <el-tag size="mini">Unity 9</el-tag>
-                </div>
-              </div>
-              <div class="status">GOOD</div>
-            </div>
-          </el-col>
-          <el-col :span="6"
-            ><div class="infoCard">
-              <div class="team">
-                AC <span class="mentor-name">るみたん</span>
-                <span class="afterfix"> チーム</span>
-                <div class="team-progress-desc">チーム進捗</div>
-                <el-progress
-                  :percentage="55"
-                  :format="format"
-                  style="line-height: 7px; margin-bottom: 7px"
-                ></el-progress>
-
-                <div class="member">
-                  サンプルユーザー1 <el-tag size="mini">Unity 7</el-tag><br />
-                </div>
-                <div class="member">
-                  サンプルユーザー2
-                  <el-tag size="mini" style="margin-right: 5px">Unity 8</el-tag>
-
-                  <el-tag type="warning" size="mini">復習回</el-tag>
-                </div>
-                <div class="member">
-                  サンプルユーザー3 <el-tag size="mini">Unity 9</el-tag>
+                  <div class="name my-1">
+                    サンプルユーザー1 <el-tag size="mini">Unity 7</el-tag><br />
+                    <!-- <div class="userStatus h-8 bg-gray-300 flex flex-row">
+                    <div class="basis-1/4 h-8">a</div>
+                    <div class="basis-1/4 bg-gray-500 h-8">a</div>
+                    <div class="info basis-1/4 h-8">a</div>
+                  </div> -->
+                  </div>
+                  <div class="userStatus flex h-8">
+                    <div
+                      class="flex-1 bg-green-300 mx-1 rounded grid place-items-center"
+                    >
+                      Step: 5 / 19
+                    </div>
+                    <div
+                      class="flex-1 bg-green-300 mx-1 rounded grid place-items-center"
+                    >
+                      OPM: 完了
+                    </div>
+                    <div
+                      class="flex-1 bg-green-300 mx-1 rounded grid place-items-center"
+                    >
+                      OK
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="status">GOOD</div>
@@ -328,25 +173,25 @@ export default {
 </script>
 
 <style lang="scss">
-.container {
-  max-width: 900px;
-  margin: auto;
+// .aaa {
+//   max-width: 900px;
+//   margin: auto;
 
-  @media screen and (max-width: 990px) {
-    max-width: 700px;
-    margin: auto;
-  }
+//   @media screen and (max-width: 990px) {
+//     max-width: 700px;
+//     margin: auto;
+//   }
 
-  @media screen and (max-width: 700px) {
-    max-width: 500px;
-    margin: auto;
-  }
-  @media screen and (max-width: 550px) {
-    max-width: 100%;
-    margin: auto;
-    padding: 0 20px;
-  }
-}
+//   @media screen and (max-width: 700px) {
+//     max-width: 500px;
+//     margin: auto;
+//   }
+//   @media screen and (max-width: 550px) {
+//     max-width: 100%;
+//     margin: auto;
+//     padding: 0 20px;
+//   }
+// }
 
 .container-off {
   margin: 0 auto;
@@ -412,7 +257,6 @@ export default {
       }
       .member {
         font-size: 12px;
-        margin-bottom: 10px;
       }
     }
     .status {
