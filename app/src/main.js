@@ -12,6 +12,8 @@ import VueGoodTablePlugin from 'vue-good-table';
 // import the styles
 import 'vue-good-table/dist/vue-good-table.css'
 
+
+
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(VueGoodTablePlugin);

@@ -270,8 +270,12 @@
               エリアマップ
             </h2>
             <div
-              class="studentList h-40 clear-both bg-green-500 pt-2 mb-10 rounded-md"
-            ></div>
+              class="studentList w-fit clear-both bg-green-500 py-2 mb-10 rounded-md"
+            >
+              <div class="container border">
+                <vue-p5 @setup="setup" @draw="draw"> </vue-p5>
+              </div>
+            </div>
           </div>
 
           <div class="clear-both dashboard-header">
@@ -321,13 +325,20 @@
 </template>
 
 <script>
+import VueP5 from "vue-p5";
+
 export default {
   name: "top",
-  components: {},
+  components: {
+    VueP5,
+  },
   data() {
     return {
       ws: null,
       count: 0,
+
+      tagPosX: 100,
+      tagPosY: 100,
 
       antA: {
         rssi: 0,
@@ -382,9 +393,75 @@ export default {
       discrp: false,
       showMembers: false,
       showOption: "min",
+      moveX: 0,
+      moveY: 0,
+      rssi: 0,
     };
   },
+  render(h) {
+    return h(VueP5, { on: this });
+  },
   methods: {
+    tick() {
+      setTimeout(() => {
+        console.log("pass");
+        if (this.antA.pt > 0) this.antA.pt -= 1;
+        if (this.antB.pt > 0) this.antB.pt -= 1;
+        if (this.antC.pt > 0) this.antC.pt -= 1;
+        if (this.antD.pt > 0) this.antD.pt -= 1;
+        this.tick();
+      }, 100);
+    },
+    setup(sketch) {
+      sketch.createCanvas(1495, 500); // キャンバスの大きさ
+      sketch.ellipseMode(sketch.CENTER);
+    },
+    draw(sketch) {
+      let size = 90;
+      sketch.background("white");
+      for (var x = 0; x * size < 1600; x++) {
+        for (var y = 0; y * size < 600; y++) {
+          sketch.pop();
+          sketch.stroke(0);
+          sketch.strokeWeight(1);
+          sketch.line(x * size, 0, x * size, 500);
+          sketch.line(0, y * size, 1495, y * size);
+          sketch.strokeWeight(0);
+          sketch.text("(" + x + "," + y + ")", x * size + 5, y * size - 5);
+          sketch.push();
+        }
+      }
+
+      let all = this.antA.pt + this.antB.pt + this.antC.pt + this.antD.pt;
+
+      let v1 = sketch.createVector(-600, -200);
+      let v2 = sketch.createVector(-600, 200);
+      let v3 = sketch.createVector(600, -200);
+      let v4 = sketch.createVector(600, 200);
+
+      let pos = sketch.createVector(0, 0);
+      pos.add(750, 200);
+      pos.add(v1.mult(this.antA.pt * 0.01 * (this.antA.pt / all)));
+      pos.add(v2.mult(this.antB.pt * 0.01 * (this.antB.pt / all)));
+      pos.add(v3.mult(this.antC.pt * 0.01 * (this.antC.pt / all)));
+      pos.add(v4.mult(this.antD.pt * 0.01 * (this.antD.pt / all)));
+
+      // pos.mult(0.5);
+      // pos.add(v3.mult(this.antC.pt * 0.005));
+      // pos.add(v4.mult(this.antD.pt * 0.005));
+
+      this.moveX -= (this.moveX - pos.x) / 10;
+      this.moveY -= (this.moveY - pos.y) / 10;
+      sketch.strokeWeight(1);
+      sketch.ellipse(this.moveX, this.moveY, 30, 30);
+      sketch.strokeWeight(0);
+      sketch.text(this.rssi, this.moveX + 20, this.moveY + 10);
+      sketch.text(this.antA.detectedTag, this.moveX + 20, this.moveY - 5);
+
+      console.log(pos.x);
+      console.log(pos.y);
+    },
+
     handleEdit(index, row) {
       console.log(index, row);
     },
@@ -446,12 +523,11 @@ export default {
         this.rows.push(data);
         this.updateANTstatus(data);
         this.count++;
-        console.log(res.split("-"));
       });
     },
   },
   mounted() {
-    console.log("mounted");
+    this.tick();
     this.ws = new WebSocket(
       "ws://nodered-sandbox.cps.private:1880/ws/rfid-payloads"
     );
