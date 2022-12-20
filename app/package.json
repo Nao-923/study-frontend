@@ -12,6 +12,7 @@
     "autoprefixer": "^9",
     "core-js": "^3.6.5",
     "element-ui": "^2.15.12",
+    "p5": "^1.5.0",
     "postcss": "^7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "the-new-css-reset": "^1.7.3",

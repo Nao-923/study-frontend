@@ -9,7 +9,9 @@
           </div>
           <div class="left">
             <el-menu-item index="1"
-              ><span class="strong">S11065</span></el-menu-item
+              ><span class="strong"
+                >Connected to ws://nodered-sandbox.cps.private:1880</span
+              ></el-menu-item
             >
           </div>
         </el-row>
@@ -38,12 +40,11 @@
             <el-col :xs="24" :sm="12" :md="8" :lg="6"
               ><div class="infoCard">
                 <div class="team">
-                  AA <span class="mentor-name">HOGEHOGE</span>
-                  <span class="afterfix"> チーム</span>
-                  <div class="team-progress-desc">チーム進捗</div>
+                  ANT-A <span class="mentor-name">RFIDアンテナ</span>
+                  <span class="afterfix"> Linked: OK</span>
+                  <div class="team-progress-desc">受信強度</div>
                   <el-progress
-                    :percentage="55"
-                    :format="format"
+                    :percentage="antA.pt"
                     style="line-height: 7px"
                   ></el-progress>
 
@@ -53,24 +54,23 @@
                   >
                     <div class="member rounded-lg bg-gray-100 p-2 mb-4">
                       <div class="name mb-1">
-                        サンプルユーザー1 <el-tag size="mini">Unity 7</el-tag
-                        ><br />
+                        受信ステータス <el-tag size="mini">ONLINE</el-tag><br />
                       </div>
                       <div class="userStatus flex h-8">
                         <div
                           class="flex-1 bg-green-300 mr-2 rounded grid place-items-center"
                         >
-                          Step: 5 / 19
+                          RSSI: {{ antA.rssi }}
                         </div>
                         <div
                           class="flex-1 bg-green-300 mr-2 rounded grid place-items-center"
                         >
-                          OPM: 完了
+                          READY
                         </div>
                         <div
                           class="flex-1 bg-red-300 rounded grid place-items-center"
                         >
-                          赤信号
+                          UP
                         </div>
                       </div>
                       <div class="description" v-if="showOption == `max`">
@@ -80,10 +80,178 @@
                           placement="bottom"
                         >
                           <div slot="content">
-                            溢れかえったテキストは<br />ここに表示されます
+                            {{ antA.detectedTag }}
                           </div>
                           <div class="truncate bg-gray-300 rounded mt-2 p-2">
-                            MessageMessageMessageMessageMessageMessageMessageMessageMessageMessageMessage
+                            {{ antA.detectedTag }}
+                          </div>
+                        </el-tooltip>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="status">GOOD</div>
+              </div>
+            </el-col>
+            <el-col :xs="24" :sm="12" :md="8" :lg="6"
+              ><div class="infoCard">
+                <div class="team">
+                  ANT-B <span class="mentor-name">RFIDアンテナ</span>
+                  <span class="afterfix"> Linked: OK</span>
+                  <div class="team-progress-desc">受信強度</div>
+                  <el-progress
+                    :percentage="antB.pt"
+                    style="line-height: 7px"
+                  ></el-progress>
+
+                  <div
+                    v-if="showOption == `normal` || showOption == `max`"
+                    class="members"
+                  >
+                    <div class="member rounded-lg bg-gray-100 p-2 mb-4">
+                      <div class="name mb-1">
+                        受信ステータス <el-tag size="mini">ONLINE</el-tag><br />
+                      </div>
+                      <div class="userStatus flex h-8">
+                        <div
+                          class="flex-1 bg-green-300 mr-2 rounded grid place-items-center"
+                        >
+                          RSSI: {{ antB.rssi }}
+                        </div>
+                        <div
+                          class="flex-1 bg-green-300 mr-2 rounded grid place-items-center"
+                        >
+                          READY
+                        </div>
+                        <div
+                          class="flex-1 bg-red-300 rounded grid place-items-center"
+                        >
+                          UP
+                        </div>
+                      </div>
+                      <div class="description" v-if="showOption == `max`">
+                        <el-tooltip
+                          class="item"
+                          effect="dark"
+                          placement="bottom"
+                        >
+                          <div slot="content">
+                            {{ antB.detectedTag }}
+                          </div>
+                          <div class="truncate bg-gray-300 rounded mt-2 p-2">
+                            {{ antB.detectedTag }}
+                          </div>
+                        </el-tooltip>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="status">GOOD</div>
+              </div>
+            </el-col>
+            <el-col :xs="24" :sm="12" :md="8" :lg="6"
+              ><div class="infoCard">
+                <div class="team">
+                  ANT-C <span class="mentor-name">RFIDアンテナ</span>
+                  <span class="afterfix"> Linked: OK</span>
+                  <div class="team-progress-desc">受信強度</div>
+                  <el-progress
+                    :percentage="antC.pt"
+                    style="line-height: 7px"
+                  ></el-progress>
+
+                  <div
+                    v-if="showOption == `normal` || showOption == `max`"
+                    class="members"
+                  >
+                    <div class="member rounded-lg bg-gray-100 p-2 mb-4">
+                      <div class="name mb-1">
+                        受信ステータス <el-tag size="mini">ONLINE</el-tag><br />
+                      </div>
+                      <div class="userStatus flex h-8">
+                        <div
+                          class="flex-1 bg-green-300 mr-2 rounded grid place-items-center"
+                        >
+                          RSSI: {{ antC.rssi }}
+                        </div>
+                        <div
+                          class="flex-1 bg-green-300 mr-2 rounded grid place-items-center"
+                        >
+                          READY
+                        </div>
+                        <div
+                          class="flex-1 bg-red-300 rounded grid place-items-center"
+                        >
+                          UP
+                        </div>
+                      </div>
+                      <div class="description" v-if="showOption == `max`">
+                        <el-tooltip
+                          class="item"
+                          effect="dark"
+                          placement="bottom"
+                        >
+                          <div slot="content">
+                            {{ antC.detectedTag }}
+                          </div>
+                          <div class="truncate bg-gray-300 rounded mt-2 p-2">
+                            {{ antC.detectedTag }}
+                          </div>
+                        </el-tooltip>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="status">GOOD</div>
+              </div>
+            </el-col>
+            <el-col :xs="24" :sm="12" :md="8" :lg="6"
+              ><div class="infoCard">
+                <div class="team">
+                  ANT-D <span class="mentor-name">RFIDアンテナ</span>
+                  <span class="afterfix"> Linked: OK</span>
+                  <div class="team-progress-desc">受信強度</div>
+                  <el-progress
+                    :percentage="antD.pt"
+                    style="line-height: 7px"
+                  ></el-progress>
+
+                  <div
+                    v-if="showOption == `normal` || showOption == `max`"
+                    class="members"
+                  >
+                    <div class="member rounded-lg bg-gray-100 p-2 mb-4">
+                      <div class="name mb-1">
+                        受信ステータス <el-tag size="mini">ONLINE</el-tag><br />
+                      </div>
+                      <div class="userStatus flex h-8">
+                        <div
+                          class="flex-1 bg-green-300 mr-2 rounded grid place-items-center"
+                        >
+                          RSSI: {{ antD.rssi }}
+                        </div>
+                        <div
+                          class="flex-1 bg-green-300 mr-2 rounded grid place-items-center"
+                        >
+                          READY
+                        </div>
+                        <div
+                          class="flex-1 bg-red-300 rounded grid place-items-center"
+                        >
+                          UP
+                        </div>
+                      </div>
+                      <div class="description" v-if="showOption == `max`">
+                        <el-tooltip
+                          class="item"
+                          effect="dark"
+                          placement="bottom"
+                        >
+                          <div slot="content">
+                            {{ antD.detectedTag }}
+                          </div>
+                          <div class="truncate bg-gray-300 rounded mt-2 p-2">
+                            {{ antD.detectedTag }}
                           </div>
                         </el-tooltip>
                       </div>
@@ -94,13 +262,24 @@
               </div>
             </el-col>
           </el-row>
-
-          <div class="dashboard-header">
+          <div class="dashbord-header">
             <h2
               class="title float-left"
               style="text-align: left; font-size: 1.3rem; font-weight: bold"
             >
-              生徒一覧
+              エリアマップ
+            </h2>
+            <div
+              class="studentList h-40 clear-both bg-green-500 pt-2 mb-10 rounded-md"
+            ></div>
+          </div>
+
+          <div class="clear-both dashboard-header">
+            <h2
+              class="title float-left"
+              style="text-align: left; font-size: 1.3rem; font-weight: bold"
+            >
+              受信ペイロード
             </h2>
             <div
               class="studentList clear-both bg-green-500 pt-2 mb-10 rounded-md"
@@ -108,6 +287,29 @@
               <vue-good-table
                 :columns="columns"
                 :rows="rows"
+                :sort-options="{
+                  enabled: true,
+                  initialSortBy: { field: 'count', type: 'desc' },
+                }"
+                :pagination-options="{
+                  enabled: true,
+                  mode: 'records',
+                  perPage: 10,
+                  position: 'top',
+                  perPageDropdown: [3, 7, 9],
+                  dropdownAllowAll: false,
+                  setCurrentPage: 2,
+                  jumpFirstOrLast: true,
+                  firstLabel: 'First Page',
+                  lastLabel: 'Last Page',
+                  nextLabel: 'next',
+                  prevLabel: 'prev',
+                  rowsPerPageLabel: 'Rows per page',
+                  ofLabel: 'of',
+                  pageLabel: 'page', // for 'pages' mode
+                  allLabel: 'All',
+                  infoFn: (params) => `my own page ${params.firstRecordOnPage}`,
+                }"
                 styleClass="vgt-table vgt-left-center bordered condensed "
               />
             </div>
@@ -124,6 +326,33 @@ export default {
   components: {},
   data() {
     return {
+      ws: null,
+      count: 0,
+
+      antA: {
+        rssi: 0,
+        status: "READY",
+        detectedTag: "NOT DETECTED",
+        pt: 0,
+      },
+      antB: {
+        rssi: 0,
+        status: "READY",
+        detectedTag: "NOT DETECTED",
+        pt: 0,
+      },
+      antC: {
+        rssi: 0,
+        status: "READY",
+        detectedTag: "NOT DETECTED",
+        pt: 0,
+      },
+      antD: {
+        rssi: 0,
+        status: "READY",
+        detectedTag: "NOT DETECTED",
+        pt: 0,
+      },
       tableData: [
         {
           address: "No",
@@ -131,129 +360,23 @@ export default {
       ],
       columns: [
         {
-          label: "Name",
-          field: "name",
-          width: "80px",
+          label: "ID",
+          field: "count",
         },
         {
-          label: "Name",
-          field: "name",
-          width: "80px",
+          label: "tagID",
+          field: "tagID",
         },
         {
-          label: "Name",
-          field: "name",
-          width: "80px",
+          label: "ANT",
+          field: "antID",
         },
         {
-          label: "Name",
-          field: "name",
-          width: "80px",
-        },
-        {
-          label: "Name",
-          field: "name",
-          width: "80px",
-        },
-        {
-          label: "Age",
-          field: "age",
-          type: "number",
-          width: "70px",
-        },
-        {
-          label: "Created On",
-          field: "createdAt",
-          type: "date",
-          dateInputFormat: "yyyy-MM-dd",
-          dateOutputFormat: "MMM do yy",
-        },
-        {
-          label: "Percent",
-          field: "score",
-          type: "percentage",
+          label: "RSSI",
+          field: "rssi",
         },
       ],
-      rows: [
-        { id: 1, name: "John", age: 20, createdAt: "", score: 0.03343 },
-        {
-          id: 2,
-          name: "Jane",
-          age: 24,
-          createdAt: "2011-10-31",
-          score: 0.03343,
-        },
-        {
-          id: 3,
-          name: "Susan",
-          age: 16,
-          createdAt: "2011-10-30",
-          score: 0.03343,
-        },
-        {
-          id: 4,
-          name: "Chris",
-          age: 55,
-          createdAt: "2011-10-11",
-          score: 0.03343,
-        },
-        {
-          id: 5,
-          name: "Dan",
-          age: 40,
-          createdAt: "2011-10-21",
-          score: 0.03343,
-        },
-        {
-          id: 6,
-          name: "John",
-          age: 20,
-          createdAt: "2011-10-31",
-          score: 0.03343,
-        },
-        {
-          id: 6,
-          name: "John",
-          age: 20,
-          createdAt: "2011-10-31",
-          score: 0.03343,
-        },
-        {
-          id: 6,
-          name: "John",
-          age: 20,
-          createdAt: "2011-10-31",
-          score: 0.03343,
-        },
-        {
-          id: 6,
-          name: "John",
-          age: 20,
-          createdAt: "2011-10-31",
-          score: 0.03343,
-        },
-        {
-          id: 6,
-          name: "John",
-          age: 20,
-          createdAt: "2011-10-31",
-          score: 0.03343,
-        },
-        {
-          id: 6,
-          name: "John",
-          age: 20,
-          createdAt: "2011-10-31",
-          score: 0.03343,
-        },
-        {
-          id: 6,
-          name: "John",
-          age: 20,
-          createdAt: "2011-10-31",
-          score: 0.03343,
-        },
-      ],
+      rows: [],
       search: "",
 
       discrp: false,
@@ -268,6 +391,71 @@ export default {
     handleDelete(index, row) {
       console.log(index, row);
     },
+    mapRange(value, a, b, c, d) {
+      // first map value from (a..b) to (0..1)
+      value = (value - a) / (b - a);
+      // then map it from (0..1) to (c..d) and return it
+      return c + value * (d - c);
+    },
+    updateANTstatus(data) {
+      switch (data.antID) {
+        case "00":
+          this.antA.rssi = data.rssi;
+          this.antA.detectedTag = data.tagID;
+          this.antA.pt = Math.round(
+            this.mapRange(data.rssi * -1, 30, 80, 100, 0)
+          );
+          break;
+        case "01":
+          this.antB.rssi = data.rssi;
+          this.antB.detectedTag = data.tagID;
+          this.antB.pt = Math.round(
+            this.mapRange(data.rssi * -1, 30, 80, 100, 0)
+          );
+          break;
+        case "02":
+          this.antC.rssi = data.rssi;
+          this.antC.detectedTag = data.tagID;
+          this.antC.pt = Math.round(
+            this.mapRange(data.rssi * -1, 30, 80, 100, 0)
+          );
+          break;
+        case "03":
+          this.antD.rssi = data.rssi;
+          this.antD.detectedTag = data.tagID;
+          this.antD.pt = Math.round(
+            this.mapRange(data.rssi * -1, 30, 80, 100, 0)
+          );
+          break;
+      }
+    },
+    hanlderWebSocketMessage: function (event) {
+      this.response = event.data;
+
+      event.data.text().then((res) => {
+        let rssiraw = parseInt(res.split("-").slice(5, 7).join(""), 16);
+
+        let data = {
+          rawData: res,
+          rssi: (rssiraw & 0x8000 ? (rssiraw |= ~0xffff) : rssiraw) / 10,
+          tagID: res.split("-").slice(9, 23).join("-"),
+          antID: res.split("-").slice(1, 2).join(""),
+          count: ("000000" + this.count).slice(-6),
+        };
+
+        this.rows.push(data);
+        this.updateANTstatus(data);
+        this.count++;
+        console.log(res.split("-"));
+      });
+    },
+  },
+  mounted() {
+    console.log("mounted");
+    this.ws = new WebSocket(
+      "ws://nodered-sandbox.cps.private:1880/ws/rfid-payloads"
+    );
+    this.ws.onmessage = this.hanlderWebSocketMessage;
   },
 };
 </script>
