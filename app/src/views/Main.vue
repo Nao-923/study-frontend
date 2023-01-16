@@ -272,8 +272,10 @@
             <div
               class="studentList w-fit clear-both bg-green-500 py-2 mb-10 rounded-md"
             >
-              <div class="container border">
-                <vue-p5 @setup="setup" @draw="draw"> </vue-p5>
+              <div id="p5view">
+                <div class="container border">
+                  <vue-p5 @setup="setup" @draw="draw"> </vue-p5>
+                </div>
               </div>
             </div>
           </div>
@@ -453,7 +455,8 @@ export default {
       }, 100);
     },
     setup(sketch) {
-      sketch.createCanvas(1495, 500);
+      let client_w = document.getElementById("p5view").clientWidth;
+      sketch.createCanvas(client_w, 500);
       sketch.ellipseMode(sketch.CENTER);
 
       for (let x = 0; x < 19; x++) {
@@ -464,20 +467,34 @@ export default {
       }
     },
     draw(sketch) {
-      let size = 90;
+      let client_w = document.getElementById("p5view").clientWidth;
+      if (client_w !== sketch.width) {
+        sketch.createCanvas(client_w, 500);
+      }
+      let size = 88;
+      let heightMax = 0;
+      while (heightMax < sketch.height) {
+        heightMax += size;
+      }
+      let offset = (heightMax - sketch.height) / 2 - 44;
       sketch.background("white");
-      for (var x = 0; x * size < 1600; x++) {
-        for (var y = 0; y * size < 600; y++) {
+      for (var x = 0; x * size < sketch.width; x++) {
+        for (var y = 0; y * size < sketch.height; y++) {
           // sketch.fill();
           sketch.fill(f(Number(this.heatMap[x][y])).toString());
-          sketch.rect(x * size, y * size, x * size + size, y * size + size);
+          sketch.rect(
+            x * size,
+            y * size - offset,
+            x * size + size,
+            y * size + size - offset
+          );
           sketch.fill(0);
           sketch.stroke(0);
           sketch.strokeWeight(1);
           sketch.line(x * size, 0, x * size, 500);
-          sketch.line(0, y * size, 1495, y * size);
+          sketch.line(0, y * size - offset, 1495, y * size - offset);
           sketch.strokeWeight(0);
-          sketch.text("(" + x + "," + y + ")", x * size + 5, y * size - 5);
+          sketch.text("(" + x + "," + y + ")", x * size + 5, y * size + 20);
 
           this.heatMap[x][y] -= 0.0005;
 
@@ -488,13 +505,13 @@ export default {
 
       let all = this.antA.pt + this.antB.pt + this.antC.pt + this.antD.pt + 1;
 
-      let v1 = sketch.createVector(-600, -200);
-      let v2 = sketch.createVector(-600, 200);
-      let v3 = sketch.createVector(600, -200);
-      let v4 = sketch.createVector(600, 200);
+      let v1 = sketch.createVector(-sketch.width / 2, -sketch.height / 2);
+      let v2 = sketch.createVector(-sketch.width / 2, sketch.height / 2);
+      let v3 = sketch.createVector(sketch.width / 2, -sketch.height / 2);
+      let v4 = sketch.createVector(sketch.width / 2, sketch.height / 2);
 
       let pos = sketch.createVector(0, 0);
-      pos.add(750, 200);
+      pos.add(sketch.width / 2, sketch.height / 2);
       pos.add(v1.mult(this.antA.pt * 0.01 * (this.antA.pt / all)));
       pos.add(v2.mult(this.antB.pt * 0.01 * (this.antB.pt / all)));
       pos.add(v3.mult(this.antC.pt * 0.01 * (this.antC.pt / all)));
