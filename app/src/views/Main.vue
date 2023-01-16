@@ -283,6 +283,23 @@
               class="title float-left"
               style="text-align: left; font-size: 1.3rem; font-weight: bold"
             >
+              追跡中タグ
+            </h2>
+            <div
+              class="studentList clear-both bg-green-500 pt-2 mb-10 rounded-md"
+            >
+              <vue-good-table
+                :columns="columnstag"
+                :rows="rowstag"
+                styleClass="vgt-table vgt-left-center bordered condensed "
+              />
+            </div>
+          </div>
+          <div class="clear-both dashboard-header">
+            <h2
+              class="title float-left"
+              style="text-align: left; font-size: 1.3rem; font-weight: bold"
+            >
               受信ペイロード
             </h2>
             <div
@@ -326,7 +343,9 @@
 
 <script>
 import VueP5 from "vue-p5";
+import chroma from "chroma-js";
 
+const f = chroma.scale(["yellow", "navy"]).mode("lch");
 export default {
   name: "top",
   components: {
@@ -387,8 +406,23 @@ export default {
           field: "rssi",
         },
       ],
+      columnstag: [
+        {
+          label: "tagID",
+          field: "tagID",
+        },
+        {
+          label: "Time Left",
+          field: "timeLeft",
+        },
+        {
+          label: "RSSI",
+          field: "rssi",
+        },
+      ],
       rows: [],
       search: "",
+      rowstag: [],
 
       discrp: false,
       showMembers: false,
@@ -396,6 +430,7 @@ export default {
       moveX: 0,
       moveY: 0,
       rssi: 0,
+      heatMap: new Array(19),
     };
   },
   render(h) {
@@ -404,35 +439,54 @@ export default {
   methods: {
     tick() {
       setTimeout(() => {
-        console.log("pass");
         if (this.antA.pt > 0) this.antA.pt -= 1;
         if (this.antB.pt > 0) this.antB.pt -= 1;
         if (this.antC.pt > 0) this.antC.pt -= 1;
         if (this.antD.pt > 0) this.antD.pt -= 1;
         this.tick();
+
+        this.rowstag.forEach((element) => {
+          element.timeLeft -= 100;
+        });
+
+        this.rowstag = this.rowstag.filter((element) => element.timeLeft > 0);
       }, 100);
     },
     setup(sketch) {
-      sketch.createCanvas(1495, 500); // キャンバスの大きさ
+      sketch.createCanvas(1495, 500);
       sketch.ellipseMode(sketch.CENTER);
+
+      for (let x = 0; x < 19; x++) {
+        this.heatMap[x] = new Array(9); //配列(array)の各要素に対して、要素数5の配列を作成
+        for (let y = 0; y < 9; y++) {
+          this.heatMap[x][y] = 0; //0で初期化
+        }
+      }
     },
     draw(sketch) {
       let size = 90;
       sketch.background("white");
       for (var x = 0; x * size < 1600; x++) {
         for (var y = 0; y * size < 600; y++) {
-          sketch.pop();
+          // sketch.fill();
+          sketch.fill(f(Number(this.heatMap[x][y])).toString());
+          sketch.rect(x * size, y * size, x * size + size, y * size + size);
+          sketch.fill(0);
           sketch.stroke(0);
           sketch.strokeWeight(1);
           sketch.line(x * size, 0, x * size, 500);
           sketch.line(0, y * size, 1495, y * size);
           sketch.strokeWeight(0);
           sketch.text("(" + x + "," + y + ")", x * size + 5, y * size - 5);
-          sketch.push();
+
+          this.heatMap[x][y] -= 0.0005;
+
+          if (this.heatMap[x][y] < 0) this.heatMap[x][y] = 0;
+          if (this.heatMap[x][y] > 1) this.heatMap[x][y] = 1;
         }
       }
 
-      let all = this.antA.pt + this.antB.pt + this.antC.pt + this.antD.pt;
+      let all = this.antA.pt + this.antB.pt + this.antC.pt + this.antD.pt + 1;
 
       let v1 = sketch.createVector(-600, -200);
       let v2 = sketch.createVector(-600, 200);
@@ -453,13 +507,19 @@ export default {
       this.moveX -= (this.moveX - pos.x) / 10;
       this.moveY -= (this.moveY - pos.y) / 10;
       sketch.strokeWeight(1);
+      sketch.fill(1);
+      sketch.stroke(255);
+      sketch.strokeWeight(1);
       sketch.ellipse(this.moveX, this.moveY, 30, 30);
-      sketch.strokeWeight(0);
+      sketch.strokeWeight(2);
       sketch.text(this.rssi, this.moveX + 20, this.moveY + 10);
       sketch.text(this.antA.detectedTag, this.moveX + 20, this.moveY - 5);
+      sketch.text("fps:" + Math.floor(sketch.frameRate()), 10, 490);
 
-      console.log(pos.x);
-      console.log(pos.y);
+      let a = Math.floor(this.moveX / 90);
+      let b = Math.floor(this.moveY / 90);
+
+      this.heatMap[a][b] += 0.02;
     },
 
     handleEdit(index, row) {
@@ -520,9 +580,25 @@ export default {
           count: ("000000" + this.count).slice(-6),
         };
 
-        this.rows.push(data);
+        // this.rows.push(data);
         this.updateANTstatus(data);
         this.count++;
+
+        let tagData = {
+          tagID: res.split("-").slice(9, 23).join("-"),
+          rssi: (rssiraw & 0x8000 ? (rssiraw |= ~0xffff) : rssiraw) / 10,
+          timeLeft: 10000,
+        };
+        let ans = this.rowstag.findIndex(
+          (element) => element.tagID === res.split("-").slice(9, 23).join("-")
+        );
+        if (ans !== -1) {
+          this.rowstag[ans].rssi =
+            (rssiraw & 0x8000 ? (rssiraw |= ~0xffff) : rssiraw) / 10;
+          this.rowstag[ans].timeLeft = 10000;
+        } else {
+          this.rowstag.push(tagData);
+        }
       });
     },
   },
