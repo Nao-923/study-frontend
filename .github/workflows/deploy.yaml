@@ -1,0 +1,40 @@
+name: Auto-Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - rfid
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+
+      - name: Deploy to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run:
+          aws s3 sync --delete --region ap-northeast-1 ./dist/ s3://rfid-frontend/
+
+      # - name: Clear cache
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     AWS_DEFAULT_REGION: ap-northeast-1
+      #   run:
+      #     aws cloudfront create-invalidation --distribution-id E1AOIIFN2ZQIY3 --paths "/*"
