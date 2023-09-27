@@ -4,7 +4,7 @@ module.exports = {
     node: true,
   },
   plugins: [
-    'vue' // この行が存在し、'vue' が指定されていることを確認
+    "vue", // この行が存在し、'vue' が指定されていることを確認
   ],
   extends: ["plugin:vue/essential", "eslint:recommended", "@vue/prettier"],
   parserOptions: {
