@@ -482,6 +482,7 @@ export default {
         for (var y = 0; y * size < sketch.height; y++) {
           // sketch.fill();
           sketch.fill(f(Number(this.heatMap[x][y])).toString());
+//ここで丸を作ってる？
           sketch.rect(
             x * size,
             y * size - offset,
@@ -528,6 +529,7 @@ export default {
       sketch.stroke(255);
       sketch.strokeWeight(1);
       sketch.ellipse(this.moveX, this.moveY, 30, 30);
+      sketch.drawTriangle(this.moveX, this.moveY, 30);
       sketch.strokeWeight(2);
       sketch.text(this.rssi, this.moveX + 20, this.moveY + 10);
       sketch.text(this.antA.detectedTag, this.moveX + 20, this.moveY - 5);
