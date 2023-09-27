@@ -457,7 +457,7 @@ export default {
     setup(sketch) {
       let client_w = document.getElementById("p5view").clientWidth;
       sketch.createCanvas(client_w, 500);
-      sketch.ellipseMode(sketch.CENTER);
+      sketch.triangleMode(sketch.CENTER);
 
       for (let x = 0; x < 19; x++) {
         this.heatMap[x] = new Array(9); //配列(array)の各要素に対して、要素数5の配列を作成
@@ -482,7 +482,7 @@ export default {
         for (var y = 0; y * size < sketch.height; y++) {
           // sketch.fill();
           sketch.fill(f(Number(this.heatMap[x][y])).toString());
-//ここで丸を作ってる？
+          //ここで丸を作ってる？
           sketch.rect(
             x * size,
             y * size - offset,
@@ -528,8 +528,15 @@ export default {
       sketch.fill(1);
       sketch.stroke(255);
       sketch.strokeWeight(1);
-      sketch.ellipse(this.moveX, this.moveY, 30, 30);
-      sketch.drawTriangle(this.moveX, this.moveY, 30);
+      // sketch.ellipse(this.moveX, this.moveY, 30, 30);
+      sketch.triangle(
+        this.moveX - 10,
+        this.moveY - 10,
+        this.moveX,
+        this.moveY + 10,
+        this.moveX + 10,
+        this.moveY + 10
+      );
       sketch.strokeWeight(2);
       sketch.text(this.rssi, this.moveX + 20, this.moveY + 10);
       sketch.text(this.antA.detectedTag, this.moveX + 20, this.moveY - 5);

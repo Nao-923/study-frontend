@@ -3,6 +3,9 @@ module.exports = {
   env: {
     node: true,
   },
+  plugins: [
+    'vue' // この行が存在し、'vue' が指定されていることを確認
+  ],
   extends: ["plugin:vue/essential", "eslint:recommended", "@vue/prettier"],
   parserOptions: {
     parser: "babel-eslint",
